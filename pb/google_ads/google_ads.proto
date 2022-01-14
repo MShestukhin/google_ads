@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package ai.somin.service.google_ads;
+
+option go_package = "gitlab.somin.ai/analytics/platform/services/google_ads/pb/google_ads";
+
+service GoogleAds {
+  rpc SyncCampaigns(SyncCampaignsRequest) returns (TaskIdentifier) {}
+  rpc UpdateTokenForBrandId(UpdateTokenForBrandIdRequest) returns(UpdateTokenForBrandIdResponse) {}
+  rpc SyncCampaignCriteria(SyncCampaignCriteriaRequest) returns (TaskIdentifier) {}
+  rpc SyncAdGroupCriteria(SyncAdGroupRequest) returns (TaskIdentifier) {}
+}
+
+message SyncAdGroupRequest{
+  string ad_account_id = 1;
+  int32 brand_id = 2;
+}
+
+message SyncCampaignCriteriaRequest{
+  string ad_account_id = 1;
+  int32 brand_id = 2;
+  int64 campaign_id = 3;
+}
+
+message UpdateTokenForBrandIdRequest {
+  int32 brand_id = 1;
+}
+
+message UpdateTokenForBrandIdResponse {
+  bool success = 1;
+}
+
+message SyncCampaignsRequest {
+  string ad_account_id = 1;
+  int32 brandId = 2;
+  bool is_icremental = 3;
+}
+
+message TaskIdentifier {
+  string id = 1;
+}
+
